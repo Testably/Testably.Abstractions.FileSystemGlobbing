@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+	  <RootNamespace>Testably.Abstractions.FileSystemGlobbing.Api.Tests</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="PublicApiGenerator" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Source\Testably.Abstractions.FileSystemGlobbing\Testably.Abstractions.FileSystemGlobbing.csproj" />
+	</ItemGroup>
+
+</Project>

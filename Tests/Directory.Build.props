@@ -1,0 +1,54 @@
+<Project>
+
+	<Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props"
+	        Condition="Exists('$(MSBuildThisFileDirectory)/../Directory.Build.props')" />
+
+	<PropertyGroup Condition="'$(NCrunch)' != '1'">
+		<TargetFrameworks Condition="'$(NetCoreOnly)' != 'True'">net6.0;net8.0;net9.0;net48</TargetFrameworks>
+		<TargetFrameworks Condition="'$(NetCoreOnly)' == 'True'">net6.0;net8.0;net9.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(NetFrameworkOnly)' == 'True'">net48</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(NCrunch)' == '1'">
+		<TargetFrameworks>net9.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
+		<OutputType>Exe</OutputType>
+		<NoWarn>$(NoWarn);701;1702;CA1845;MA0003;MA0004;MA0018;MA0020;MA0042;MA0076;xUnit1044;xUnit1045;NU1603</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<Nullable>annotations</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="aweXpect" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" />
+		<PackageReference Include="xunit.v3" />
+		<PackageReference Include="xunit.runner.visualstudio">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Nullable">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Meziantou.Analyzer">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>

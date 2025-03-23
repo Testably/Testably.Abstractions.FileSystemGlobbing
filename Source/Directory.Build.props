@@ -1,0 +1,56 @@
+<Project>
+
+	<Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props"
+	        Condition="Exists('$(MSBuildThisFileDirectory)/../Directory.Build.props')" />
+
+	<PropertyGroup>
+		<PackageTags>abstractions testing</PackageTags>
+		<PackageProjectUrl>https://github.com/Testably/Testably.Abstractions</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>Docs/logo_256x256.png</PackageIcon>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net8.0;net9.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(NetFrameworkOnly)' == 'True'">netstandard2.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<NoWarn>$(NoWarn);1701;1702;MA0003;MA0004;MA0042;MA0076;MA0105;MA0106;NU5104</NoWarn>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<Nullable>annotations</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Nullable">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$([MSBuild]::GetPathOfFileAbove('logo_256x256.png', '$(MSBuildThisFileDirectory)../Docs/Images/'))"
+		      Pack="true" PackagePath="/Docs/"
+		      Link="\Docs\logo_256x256.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Meziantou.Analyzer">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>
