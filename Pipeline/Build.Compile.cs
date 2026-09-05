@@ -46,7 +46,7 @@ partial class Build
 			}
 
 			GitVersion gitVersion = GitVersionTasks.GitVersion(s => s
-					.SetFramework("net8.0")
+					.SetFramework("net10.0")
 					.SetNoFetch(true)
 					.SetNoCache(true)
 					.DisableProcessOutputLogging()
