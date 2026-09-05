@@ -36,6 +36,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5E35E265-7110-47A0-9E3E-B5180BBB5AA6}"
 	ProjectSection(SolutionItems) = preProject
 		.github\coverage-settings.xml = .github\coverage-settings.xml
+		.github\mergify.yml = .github\mergify.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{8FD8E33B-2072-48CA-8164-DE2AA5DCB8FD}"
