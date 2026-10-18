@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -20,7 +19,7 @@ public static class Helper
 #endif
 		string assemblyFile = CombinedPaths("Source", assemblyName, "bin", configuration, framework,
 			$"{assemblyName}.dll");
-		Assembly assembly = Assembly.LoadFile(assemblyFile);
+		System.Reflection.Assembly assembly = System.Reflection.Assembly.LoadFile(assemblyFile);
 		string publicApi = assembly.GeneratePublicApi(options: new ApiGeneratorOptions
 		{
 			AllowNamespacePrefixes = ["System.IO.Abstractions"],

@@ -2,7 +2,7 @@
 
 public class DummyTest
 {
-	[Fact]
+	[Test]
 	public async Task MyDummyTest()
 	{
 		await That(1).IsGreaterThan(0);
