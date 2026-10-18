@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using Project = Nuke.Common.ProjectModel.Project;
 
@@ -88,6 +89,7 @@ partial class Build
 
 			DotNetToolInstall(_ => _
 				.SetPackageName("dotnet-stryker")
+				.SetVersion(GetStrykerVersion())
 				.SetToolInstallationPath(StrykerToolPath));
 
 			StrykerOutputDirectory.CreateOrCleanDirectory();
@@ -154,9 +156,10 @@ partial class Build
 				File.WriteAllText(configFile, configText);
 				Log.Debug($"Created '{configFile}':{Environment.NewLine}{configText}");
 
+				// The test projects are executables of the Microsoft.Testing.Platform, which the default runner (VSTest) cannot run.
 				string arguments = IsServerBuild
-					? $"-f \"{configFile}\" -O \"{StrykerOutputDirectory}\" -r \"Markdown\" -r \"Dashboard\" -r \"cleartext\""
-					: $"-f \"{configFile}\" -O \"{StrykerOutputDirectory}\" -r \"Markdown\" -r \"cleartext\"";
+					? $"-f \"{configFile}\" -O \"{StrykerOutputDirectory}\" -r \"Markdown\" -r \"Dashboard\" -r \"cleartext\" --test-runner mtp"
+					: $"-f \"{configFile}\" -O \"{StrykerOutputDirectory}\" -r \"Markdown\" -r \"cleartext\" --test-runner mtp";
 
 				string executable = EnvironmentInfo.IsWin ? "dotnet-stryker.exe" : "dotnet-stryker";
 				IProcess process = ProcessTasks.StartProcess(
@@ -223,6 +226,16 @@ partial class Build
 		string body = sb.ToString();
 		return body;
 	}
+
+	/// <summary>
+	///     The version of Stryker to install, which is the one that the <c>PackageDownload</c> of the build project
+	///     pins, so that it is updated like the other tools.
+	/// </summary>
+	static string GetStrykerVersion()
+		=> XDocument.Load(RootDirectory / "Pipeline" / "Build.csproj")
+			.Descendants("PackageDownload")
+			.Single(package => package.Attribute("Include")?.Value == "dotnet-stryker")
+			.Attribute("Version")!.Value.Trim('[', ']');
 
 	static string PathForJson(Project project)
 		=> $"\"{project.Path.ToString().Replace(@"\", @"\\")}\"";

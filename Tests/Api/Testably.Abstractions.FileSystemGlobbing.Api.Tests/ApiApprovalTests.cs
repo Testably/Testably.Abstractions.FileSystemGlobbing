@@ -1,5 +1,6 @@
-﻿using NUnit.Framework;
-using System.Collections;
+﻿using aweXpect;
+using System.Threading.Tasks;
+using static aweXpect.Expect;
 
 namespace Testably.Abstractions.FileSystemGlobbing.Api.Tests;
 
@@ -10,32 +11,15 @@ namespace Testably.Abstractions.FileSystemGlobbing.Api.Tests;
 /// </summary>
 public sealed class ApiApprovalTests
 {
-	[TestCaseSource(typeof(TargetFrameworksTheoryData))]
-	public void VerifyPublicApiForTestablyAbstractionsFileSystemGlobbing(string framework)
+	[Test]
+	[MethodDataSource(typeof(Helper), nameof(Helper.GetTargetFrameworks))]
+	public async Task VerifyPublicApiForTestablyAbstractionsFileSystemGlobbing(string framework)
 	{
 		const string assemblyName = "Testably.Abstractions.FileSystemGlobbing";
 
 		string publicApi = Helper.CreatePublicApi(framework, assemblyName);
 		string expectedApi = Helper.GetExpectedApi(framework, assemblyName);
 
-		Assert.That(publicApi, Is.EqualTo(expectedApi));
-	}
-
-	private sealed class TargetFrameworksTheoryData : IEnumerable
-	{
-		#region IEnumerable Members
-
-		public IEnumerator GetEnumerator()
-		{
-			foreach (string targetFramework in Helper.GetTargetFrameworks())
-			{
-				yield return new object[]
-				{
-					targetFramework
-				};
-			}
-		}
-
-		#endregion
+		await That(publicApi).IsEqualTo(expectedApi);
 	}
 }

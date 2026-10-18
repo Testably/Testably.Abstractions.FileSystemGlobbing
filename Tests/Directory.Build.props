@@ -19,7 +19,7 @@
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
 		<OutputType>Exe</OutputType>
-		<NoWarn>$(NoWarn);701;1702;CA1845;MA0003;MA0004;MA0018;MA0020;MA0042;MA0076;xUnit1044;xUnit1045;NU1603</NoWarn>
+		<NoWarn>$(NoWarn);701;1702;CA1845;MA0003;MA0004;MA0018;MA0020;MA0042;MA0076;NU1603</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -28,16 +28,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="aweXpect" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" />
-		<PackageReference Include="xunit.v3" />
-		<PackageReference Include="xunit.runner.visualstudio">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="coverlet.collector">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+		<PackageReference Include="TUnit.Engine" />
+		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
 		<PackageReference Include="Nullable">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
